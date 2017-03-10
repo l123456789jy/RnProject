@@ -17,6 +17,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import TabNavigator from 'react-native-tab-navigator';//底部tab
 var AboutMeView = require('./AboutMe');//关于我界面
 var HomeView = require('./Home');//主界面
+var HomeCourse = require('./HomeCourse');//课程主界面
  class TabBottom extends Component {
     static defaultProps = {
         selectedColor: 'rgb(22,131,251)',
@@ -46,7 +47,7 @@ var HomeView = require('./Home');//主界面
                     renderIcon={() => <Image style={styles.tab} source={this.state.homeNormal} />}
                     renderSelectedIcon={() => <Image style={styles.tab} source={this.state.homeSelected} />}
                     onPress={() => this.setState({ selectedTab: 'home' })}>
-                    {<HomeView navigator={this.props.navigator}/>}
+                    {<HomeCourse navigator={this.props.navigator}/>}
                 </TabNavigator.Item>
                 <TabNavigator.Item
                     tabStyle={styles.tabStyle}
@@ -56,7 +57,7 @@ var HomeView = require('./Home');//主界面
                     renderIcon={() => <Image style={styles.tab} source={this.state.compassNormal} />}
                     renderSelectedIcon={() => <Image style={styles.tab} source={this.state.compassSelected} />}
                     onPress={() => this.setState({ selectedTab: 'compass' })}>
-                    {<AboutMeView navigator={this.props.navigator}/>}
+                    {<HomeView navigator={this.props.navigator}/>}
                 </TabNavigator.Item>
                 <TabNavigator.Item
                     tabStyle={styles.tabStyle}
