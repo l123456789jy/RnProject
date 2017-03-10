@@ -29,6 +29,7 @@ var HomeView = require('./Home');//主界面
             tabName: ['首页', '发现', '我']
         }
     }
+     // HomeView 等 界面切换的时候一定要加上navigator路由要不然无法跳转界面
     render() {
         const {selectedColor} = this.props;
         const {tabName} = this.state;
@@ -45,7 +46,7 @@ var HomeView = require('./Home');//主界面
                     renderIcon={() => <Image style={styles.tab} source={this.state.homeNormal} />}
                     renderSelectedIcon={() => <Image style={styles.tab} source={this.state.homeSelected} />}
                     onPress={() => this.setState({ selectedTab: 'home' })}>
-                    {<HomeView />}
+                    {<HomeView navigator={this.props.navigator}/>}
                 </TabNavigator.Item>
                 <TabNavigator.Item
                     tabStyle={styles.tabStyle}
@@ -55,7 +56,7 @@ var HomeView = require('./Home');//主界面
                     renderIcon={() => <Image style={styles.tab} source={this.state.compassNormal} />}
                     renderSelectedIcon={() => <Image style={styles.tab} source={this.state.compassSelected} />}
                     onPress={() => this.setState({ selectedTab: 'compass' })}>
-                    {<AboutMeView />}
+                    {<AboutMeView navigator={this.props.navigator}/>}
                 </TabNavigator.Item>
                 <TabNavigator.Item
                     tabStyle={styles.tabStyle}
@@ -65,7 +66,7 @@ var HomeView = require('./Home');//主界面
                     renderIcon={() => <Image style={styles.tab} source={this.state.meNormal} />}
                     renderSelectedIcon={() => <Image style={styles.tab} source={this.state.meSelected} />}
                     onPress={() => this.setState({ selectedTab: 'me' })}>
-                    {<AboutMeView />}
+                    {<AboutMeView navigator={this.props.navigator}/>}
                 </TabNavigator.Item>
             </TabNavigator>
         );
