@@ -33,6 +33,9 @@ var back_bg = require('./../img/menu.png');
 var drawable_bg = require('./../img/drawerlayout.png');
 
 
+//引入干活详情界面
+var GanHuoDetailes = require('./GanHuoDetailes');
+
 //存放返回的数据的数组
 var movieData = new Array();
 
@@ -40,6 +43,7 @@ var movieData = new Array();
 class Home extends Component {
     constructor(props) {
         super(props);
+        this.renderMovie = this.renderMovie.bind(this);//注意此方法要绑定要不然该方法里面的点击事件无法响应
         this.state = {
             dataSource: new ListView.DataSource({
                 rowHasChanged: (row1, row2) => row1 !== row2,
@@ -191,17 +195,34 @@ class Home extends Component {
     }
 
 
-    //显示渲染返回的数据
+    //显示渲染返回的数据,此处的=>相当于bind
     renderMovie(results) {
         return (
-            <View style={styles.container}>
-                <View style={styles.rightContainer}
-                >
-                    <Text style={styles.title}>{results.desc}</Text>
-                    <Text style={styles.year}>{results.createdAt}</Text>
+            <TouchableOpacity onPress={() => this.openDetailsView(results.url,results.desc)}>
+                <View style={styles.container}>
+                    <View style={styles.rightContainer}
+                    >
+                        <Text style={styles.title}>{results.desc}</Text>
+                        <Text style={styles.year}>{results.createdAt}</Text>
+                    </View>
                 </View>
-            </View>
+            </TouchableOpacity>
         );
+    }
+    //打开干货详情界面
+    openDetailsView(url,des){
+        //延长在执行回调方法，提高体验,干活详情界面
+        InteractionManager.runAfterInteractions(() => {
+            this.props.navigator.push({   //将轮播图详情界面压栈
+                component: GanHuoDetailes,
+                message :url,//此数值传递到新打开的界面
+                title :des,
+                //通过这种回调，获取到上一个页面中传递回来的数据
+                getResult:function(myMessage){
+
+                }
+            });
+        });
     }
 
 }
