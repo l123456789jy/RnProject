@@ -12,4 +12,4 @@ react-native example
 
 ![](https://github.com/l123456789jy/RnProject/blob/master/img/device-2017-03-09-204212.png)
 
-
+![](https://github.com/l123456789jy/RnProject/blob/master/img/Screenshot_20170313-165928.png)
