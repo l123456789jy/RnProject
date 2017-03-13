@@ -31,9 +31,6 @@ var IMGS = [
     'https://images.unsplash.com/photo-1440847899694-90043f91c7f9?h=1024'
 ];
 
-var count = 0;
-//创建对象，作用就是能够拿到当前这个方法的对象，不然在使用this时，可能拿到其他方法的对象
-var _this = this;
 //主界面
 class HomeCourse extends Component {
 
@@ -78,9 +75,9 @@ class HomeCourse extends Component {
     //返回轮播图的图片
     renverViewpagerview() {
         var imageViews = [];
-        for (var i = 0; i < IMGS.length; i++) {
+        for (let  i = 0; i < IMGS.length; i++) {//注意这里要用let 修饰要不然，这里传递的数据一直是最后一个
             imageViews.push(
-                <TouchableOpacity onPress={() => this.onPressImage(i)}>
+                <TouchableOpacity onPress={() => this.onPressImage(IMGS[i])}>
                     <View style={styles.slide}>
                         <Image resizeMode='stretch' style={styles.thumbnail} source={{uri: IMGS[i]}} />
                         <Text  style={styles.text} numberOfLines={1}>我是标题</Text>
@@ -95,11 +92,11 @@ class HomeCourse extends Component {
 
     //获取传递过来的图片路径
     onPressImage(path){
-        //延长在执行回调方法，提高体验,打开关于我的界面
+        //延长在执行回调方法，提高体验,打开关于我的界面，这里getResult方法和message字段都可以自己定义
         InteractionManager.runAfterInteractions(() => {
             this.props.navigator.push({   //将轮播图详情界面压栈
                 component: Advertisting,
-                message :path,
+                message :path,//此数值传递到新打开的界面
                 //通过这种回调，获取到上一个页面中传递回来的数据
                 getResult:function(myMessage){
                     ToastAndroid.show(myMessage+"",ToastAndroid.SHORT);

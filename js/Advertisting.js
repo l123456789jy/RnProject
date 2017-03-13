@@ -25,7 +25,7 @@ class Advertisting extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            //显示传递过来的数据的默认占位数据
+            //显示从上个界面传递过来的数据的默认占位数据
             message: "",
         };
     }
