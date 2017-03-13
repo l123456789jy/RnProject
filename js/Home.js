@@ -36,7 +36,7 @@ var drawable_bg = require('./../img/drawerlayout.png');
 //存放返回的数据的数组
 var movieData = new Array();
 
-//主界面
+//发现界面
 class Home extends Component {
     constructor(props) {
         super(props);

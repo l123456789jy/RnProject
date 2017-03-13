@@ -11,9 +11,14 @@ import {
     WebView,
     ToolbarAndroid,
     ToastAndroid,
-    TouchableOpacity
+    TouchableOpacity,
+    InteractionManager
 } from 'react-native';
+
 import Swiper from 'react-native-swiper';
+
+//引入广告详情界面
+var Advertisting = require('./Advertisting');
 
 var WINDOW_WIDTH = Dimensions.get('window').width;
 var IMGS = [
@@ -27,8 +32,9 @@ var IMGS = [
 ];
 
 var count = 0;
-
-//课程主界面
+//创建对象，作用就是能够拿到当前这个方法的对象，不然在使用this时，可能拿到其他方法的对象
+var _this = this;
+//主界面
 class HomeCourse extends Component {
 
     constructor(props) {
@@ -85,8 +91,21 @@ class HomeCourse extends Component {
         }
         return imageViews;
     }
+
+
     //获取传递过来的图片路径
     onPressImage(path){
+        //延长在执行回调方法，提高体验,打开关于我的界面
+        InteractionManager.runAfterInteractions(() => {
+            this.props.navigator.push({   //将轮播图详情界面压栈
+                component: Advertisting,
+                message :path,
+                //通过这种回调，获取到上一个页面中传递回来的数据
+                getResult:function(myMessage){
+                    ToastAndroid.show(myMessage+"",ToastAndroid.SHORT);
+                }
+            });
+        });
         ToastAndroid.show(path+"",ToastAndroid.SHORT);
     }
 
