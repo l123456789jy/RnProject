@@ -72,15 +72,14 @@ class HomeCourse extends Component {
         );
     }
 
-    //返回轮播图的图片
+    //返回轮播图的图片,这里添加Key 是为了react-key-warning  警告保证dom树的唯一性
     renverViewpagerview() {
         var imageViews = [];
         for (let  i = 0; i < IMGS.length; i++) {//注意这里要用let 修饰要不然，这里传递的数据一直是最后一个
             imageViews.push(
-                <TouchableOpacity onPress={() => this.onPressImage(IMGS[i])}>
-                    <View style={styles.slide}>
-                        <Image resizeMode='stretch' style={styles.thumbnail} source={{uri: IMGS[i]}} />
-                        <Text  style={styles.text} numberOfLines={1}>我是标题</Text>
+                <TouchableOpacity  key={'Ti_' + i} onPress={() => this.onPressImage(IMGS[i])}>
+                    <View  key={'vi_' + i} style={styles.slide}>
+                        <Image  key={'im_' + i} resizeMode='stretch' style={styles.thumbnail} source={{uri: IMGS[i]}} />
                     </View>
                 </TouchableOpacity>
 
