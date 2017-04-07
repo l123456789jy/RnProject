@@ -16,7 +16,7 @@ import {
     TouchableOpacity,
     InteractionManager,
 } from 'react-native';
-
+var WINDOW_WIDTH = Dimensions.get('window').width;
 var page = 1;
 var REQUEST_URL = 'http://gank.io/api/data/Android/10/' + page;
 
@@ -29,6 +29,9 @@ var AboutMeView = require('./AboutMe');//关于我界面
 
 //引入返回图标
 var back_bg = require('./../img/menu.png');
+//引入默认图标
+var no_data_bg = require('./../img/user_article_no_data.png');
+
 //侧滑栏顶部的背景
 var drawable_bg = require('./../img/drawerlayout.png');
 
@@ -198,27 +201,39 @@ class Home extends Component {
     //显示渲染返回的数据,此处的=>相当于bind
     renderMovie(results) {
         return (
-            <TouchableOpacity onPress={() => this.openDetailsView(results.url,results.desc)}>
+            <TouchableOpacity onPress={() => this.openDetailsView(results.url, results.desc)}>
                 <View style={styles.container}>
-                    <View style={styles.rightContainer}
-                    >
-                        <Text style={styles.title}>{results.desc}</Text>
-                        <Text style={styles.year}>{results.createdAt}</Text>
+                    <View style={styles.rightContainer}>
+
+                        {(results.images != undefined) ?
+                            <Image style={styles.thumbnail} source={{uri: results.images[0]}}/> :
+                            <Image style={[styles.thumbnail]} source={no_data_bg}/>
+                        }
+
+                        <View style={styles.item}>
+                            <Text style={styles.title}>{results.desc}</Text>
+                            <Text style={styles.year}>{results.publishedAt}</Text>
+                        </View>
+
                     </View>
+
                 </View>
             </TouchableOpacity>
         );
+
+
     }
+
     //打开干货详情界面
-    openDetailsView(url,des){
+    openDetailsView(url, des) {
         //延长在执行回调方法，提高体验,干活详情界面
         InteractionManager.runAfterInteractions(() => {
             this.props.navigator.push({   //将轮播图详情界面压栈
                 component: GanHuoDetailes,
-                message :url,//此数值传递到新打开的界面
-                title :des,
+                message: url,//此数值传递到新打开的界面
+                title: des,
                 //通过这种回调，获取到上一个页面中传递回来的数据
-                getResult:function(myMessage){
+                getResult: function (myMessage) {
 
                 }
             });
@@ -229,6 +244,10 @@ class Home extends Component {
 
 
 const styles = StyleSheet.create({
+
+    item: {
+        justifyContent: 'center',
+    },
 
 
     drawableContainer2: {
@@ -284,7 +303,6 @@ const styles = StyleSheet.create({
 
 
     container: {
-
         flexDirection: 'row', //按顺序从左往右排列
         justifyContent: 'center',
         alignItems: 'center',
@@ -294,16 +312,22 @@ const styles = StyleSheet.create({
 
     thumbnail: {
         width: 53,
-        height: 81,
+        height: 80,
+        marginTop: 10,
+        marginLeft: 10,
+        marginRight: 10,
+        marginBottom:10,
     },
 
 
     rightContainer: {
+        flexDirection: 'row',//控制内部控件是以什么布局方式排列，row是横向排列
         borderRadius: 10,  //圆角
-        flex: 1,
+        height: 100,
         marginTop: 10,
         marginLeft: 10,
         marginRight: 10,
+        width: WINDOW_WIDTH - 10,
         backgroundColor: "#FFFFFF"
     },
 

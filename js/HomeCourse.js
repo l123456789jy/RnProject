@@ -57,7 +57,7 @@ class HomeCourse extends Component {
                     titleColor='#D6DDEF'  //只支持RGB数值，设置标题的字体颜色
                     style={styles.toolbar}
                     title="主页"></ToolbarAndroid>
-                <Swiper style={styles.wrapper}
+                <Swiper style={styles.wrapper}//轮播图
                         height={190}
                         horizontal={true}
                         autoplay={true}
@@ -75,14 +75,13 @@ class HomeCourse extends Component {
     //返回轮播图的图片,这里添加Key 是为了react-key-warning  警告保证dom树的唯一性
     renverViewpagerview() {
         var imageViews = [];
-        for (let  i = 0; i < IMGS.length; i++) {//注意这里要用let 修饰要不然，这里传递的数据一直是最后一个
+        for (let i = 0; i < IMGS.length; i++) {//注意这里要用let 修饰要不然，这里传递的数据一直是最后一个
             imageViews.push(
-                <TouchableOpacity  key={'Ti_' + i} onPress={() => this.onPressImage(IMGS[i])}>
-                    <View  key={'vi_' + i} style={styles.slide}>
-                        <Image  key={'im_' + i} resizeMode='stretch' style={styles.thumbnail} source={{uri: IMGS[i]}} />
+                <TouchableOpacity key={'Ti_' + i} onPress={() => this.onPressImage(IMGS[i])}>
+                    <View key={'vi_' + i} style={styles.slide}>
+                        <Image key={'im_' + i} resizeMode='stretch' style={styles.thumbnail} source={{uri: IMGS[i]}}/>
                     </View>
                 </TouchableOpacity>
-
             );
         }
         return imageViews;
@@ -90,19 +89,19 @@ class HomeCourse extends Component {
 
 
     //获取传递过来的图片路径
-    onPressImage(path){
+    onPressImage(path) {
         //延长在执行回调方法，提高体验,打开关于我的界面，这里getResult方法和message字段都可以自己定义
         InteractionManager.runAfterInteractions(() => {
             this.props.navigator.push({   //将轮播图详情界面压栈
                 component: Advertisting,
-                message :path,//此数值传递到新打开的界面
+                message: path,//此数值传递到新打开的界面
                 //通过这种回调，获取到上一个页面中传递回来的数据
-                getResult:function(myMessage){
-                    ToastAndroid.show(myMessage+"",ToastAndroid.SHORT);
+                getResult: function (myMessage) {
+                    ToastAndroid.show(myMessage + "", ToastAndroid.SHORT);
                 }
             });
         });
-        ToastAndroid.show(path+"",ToastAndroid.SHORT);
+        ToastAndroid.show(path + "", ToastAndroid.SHORT);
     }
 
 }
