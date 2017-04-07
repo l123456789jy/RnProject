@@ -245,8 +245,11 @@ class Home extends Component {
 
 const styles = StyleSheet.create({
 
-    item: {
-        justifyContent: 'center',
+    item: {//子控件要想设置margin距离，父控件必须设置宽高
+        height: 100,
+        width: Dimensions.get('window').width / 5 * 3,
+        marginRight: 10,
+        marginTop: 10,
     },
 
 
@@ -311,7 +314,7 @@ const styles = StyleSheet.create({
 
 
     thumbnail: {
-        width: 53,
+        width: 80,
         height: 80,
         marginTop: 10,
         marginLeft: 10,
@@ -328,24 +331,24 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         marginRight: 10,
         width: WINDOW_WIDTH - 10,
-        backgroundColor: "#FFFFFF"
+        backgroundColor: "#ffaae7"
     },
 
 
     title: {
         marginTop: 3,
         marginLeft: 3,
-        marginRight: 3,
+        marginRight: 20,
         fontWeight: "bold",
         textShadowColor: '#F5FEED',
         fontSize: 15,
         marginBottom: 8,
-        textAlign: 'center',
+        textAlign: 'left',
     },
 
 
     year: {
-        textAlign: 'center',
+        textAlign: 'left',
     },
 
 
